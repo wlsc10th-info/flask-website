@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock title%}
+{% block content%}
+{% if t %}
+<img src="{{ img_stream }}" alt='User IMage'>
+<p>{{t}}</p>
+{% endif %}
+<form method='POST' action={{url_for('upload')}} enctype='multipart/form-data'>
+        <p>
+        Enter your text:
+        <input type='text' name='text'>
+    </p>
+        <p>
+        upload your file:
+        <input type="file" name="file">
+    </p>
+        <p>
+        <button type='submit'>Submit</button>
+    </p>
+</form>
+{% endblock content%}
