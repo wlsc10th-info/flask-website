@@ -2,6 +2,103 @@
 {% block title%}歡迎
 {%endblock title%}
 {% block content%}
-<h3>{{current_user.username}}，歡迎回來</h3>
+<div class="container">
+    <div class="row">
+        <p><h3>{{current_user.username}}，歡迎回來</h3></p>
+        
+    </div>
+    <div class="row justify-content-center">
+        <p><h4>step1:上傳您的照片</h4></p>
+    </div>
 
+    <div class="row">
+        <div class="col bg-light border rounded border-light">
+            <form method="POST" action={{url_for('step1')}} enctype='multipart/form-data'>
+                <p>
+                upload your file:
+                <input type="file" name="file">
+            </p>
+                <p>
+                <button type='submit'>Submit</button>
+            </p>
+            </form>
+        </div>   
+        <div class="col bg-light border rounded border-light">
+            {%if img%}
+                <img src="{{img}}" width="350" height="auto">
+            {%endif%}
+        </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <h4>step2:選擇您的照片</h4>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col bg-light border rounded border-light">
+            <form method="POST" action={{url_for('step2')}} enctype='multipart/form-data'>
+                
+                <p>
+                choose your style:
+                <div class="form-group">
+                    <label for="sel1">Select list:</label>
+                    <select class="form-control" id="sel1" name="optradio">
+                      <option selected value="{{op}}">{{op}}</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </select>
+                </div>
+                  
+            </p>
+                {%if op%}
+                <p>
+                <div class="form-check">
+                    <label class="form-check-label" >
+                      <input type="radio" class="form-check-input" name="a" value="delete">delete
+                      
+                    </label>
+                </div>
+                {%endif%}
+            </p>
+                <p>
+                <button type='submit'>Submit</button>
+            </p>
+            </form>
+        </div>   
+        <div class="col bg-light border rounded border-light">
+            {%if img%}
+                <img src="{{img}}" width="350" height="auto">
+            {%endif%}
+        </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <h4>step3:調整您照片的大小</h4>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col bg-light border rounded border-light">
+            <form method="POST" action={{url_for('step3')}} enctype='multipart/form-data'>
+                <p>
+                    Enter your text:
+                    <input type='text' name='text'>
+                </p>
+                    <p>
+                    adjust your image size(px):
+                    <input type="range" name="ad-size" value="{{size}}" min="100" max="600" oninput="this.nextElementSibling.value = this.value">
+                    <output>{{size}}</output>
+                </p>
+                <p>
+                    <button type='submit'>Submit</button>
+                </p>
+            </form>
+        </div>
+        <div class="col bg-light border rounded border-light">
+            {%if img%}
+                <img src="{{img}}" width="{{size}}" height="auto">
+            {%endif%}
+        </div>
+    </div>
+</div>
 {% endblock content%}

@@ -2,6 +2,11 @@
 {% block title%}首頁
 {%endblock title%}
 {% block content%}
-<h1>歡迎使用手寫風格產生器!</h1>
-<button  class="btn btn-warning" href="{{url_for('login')}}">Get Started!</button>
+<div class="text-center">
+    <h1>歡迎使用手寫風格產生器!</h1>
+    <a href="{{url_for('login')}}">
+        <button  class="btn btn-warning" >Get Started!</button>
+    </a>
+</div>
+
 {% endblock content%}
