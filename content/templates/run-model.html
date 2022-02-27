@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title%}歡迎
+{%endblock title%}
+{% block content%}
+<div class="container">
+    <div class="row">
+        <div class="col bg-light border rounded border-dark">
+            <form method="POST" action={{url_for('step3')}} enctype='multipart/form-data'>
+                <p>
+                    Enter your text:
+                </p>
+                    <textarea name="text" cols="40" rows="10" required></textarea>
+                <p>
+                    adjust your font size(px):
+                    <input type="range" name="font-size" value="{{size}}" min="100" max="600" oninput="this.nextElementSibling.value = this.value">
+                    <output>{{size}}</output>
+                </p>
+                <p>
+                    adjust your letterspacing(px):
+                    <input type="range" name="space-size" value="{{size}}" min="100" max="600" oninput="this.nextElementSibling.value = this.value">
+                    <output>{{size}}</output>
+                </p>
+                <p>
+                    <button type='submit'>Submit</button>
+                </p>
+            </form>
+            
+        </div>
+        <div class="col bg-light border rounded border-dark">
+            <h5>Results:</h5>
+        </div>
+    </div>
+    <div class="row">
+        <a href="{{url_for('step2')}}">
+            <button class="btn border-dark btn-danger" style="color:rgb(255, 255, 255)">Back</button>
+        </a>
+    </div>
+</div>
+{%endblock content%}

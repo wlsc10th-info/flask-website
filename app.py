@@ -5,6 +5,7 @@ from content import db,app
 from content.models import User
 from content.forms import RegistrationForm,LoginForm
 from werkzeug.utils import secure_filename
+from sqlalchemy.orm.attributes import flag_modified
 import os
 db.create_all()
 @app.route('/')
@@ -41,6 +42,7 @@ def register():
             flash("此名稱已被使用")
             return redirect(url_for('register'))
         # add to db table
+        os.makedirs('C:\\Users\\ivanw\\OneDrive\\桌面\\flaskWebsite\\content\\static/'+user.username)
         db.session.add(user)
         db.session.commit()
         flash("感謝註冊本系統成為會員")
@@ -53,14 +55,27 @@ def step1():
         #flash("upload Successfully")
         user=User.query.filter_by(username=current_user.username).first()
         f=request.files['file']
+        style_name=request.form.get('style_name')
+        for name in user.image["name"]:
+            if name==style_name:
+                flash('this style name has existed')
+                return render_template('welcome_user.html',size=350,img=None,op=None)
+
         basepath=os.path.dirname(__file__)
-        upload_path=os.path.join(basepath,'content/static',secure_filename(f.filename))
-        if upload_path == 'C:\\Users\\ivanw\\OneDrive\\桌面\\flaskWebsite\\content/static\\':
+        root, extension = os.path.splitext(f.filename)
+        f.filename=style_name+extension
+        upload_path=os.path.join(basepath,'content/static/'+user.username,secure_filename(f.filename))
+        
+        
+        
+        if upload_path == 'C:\\Users\\ivanw\\OneDrive\\桌面\\flaskWebsite\\content/static/'+user.username+'\\':
             return render_template('welcome_user.html',size=350,img=None,op=None)
         f.save(upload_path)
-        user.input_images('../static/'+f.filename)
+        user.input_images('../static/'+user.username+'/'+f.filename,style_name)
+        flag_modified(user,"image")
         db.session.commit()
-        return render_template('welcome_user.html',size=350,img='../static/'+f.filename)
+        print("len:",len(user.image['name']))
+        return render_template('welcome_user.html',size=350,img='../static/'+user.username+'/'+f.filename,op=len(user.image['name'])-1)
     return render_template('welcome_user.html',size=350,img=None,op=None)
 @app.route('/step2',methods=['GET','POST'])
 @login_required
@@ -69,48 +84,32 @@ def step2():
         user=User.query.filter_by(username=current_user.username).first()
         o=request.values['optradio']
         d=request.form.getlist('a')
-        if o== null:
-            return render_template('welcome_user.html',size=350,img=None,op=None)
-        elif o=='1':
-            
-            if d==['delete']:
-                print('d1:',d)
-                user.delete_image(1)
-                db.session.commit()
-            user.showing_num='1'
-            return render_template('welcome_user.html',size=350,img=user.image_path_1,op=o)
-        elif o=='2':
-            
-            if d==['delete']:
-                print('d2:',d)
-                user.delete_image(2)
-                db.session.commit()
-            user.showing_num='2'
-            return render_template('welcome_user.html',size=350,img=user.image_path_2,op=o)
-        else:
-            
-            if d==['delete']:
-                print('d3:',d)
-                user.delete_image(3)
-                db.session.commit()
-            user.showing_num='3'
-            return render_template('welcome_user.html',size=350,img=user.image_path_3,op=o)
+        i=0
+        if o==None:
+            return render_template('welcome_user.html',img=None,op=None)
+        for name in user.image["name"]:
+            if name==o:
+                break
+            else:
+                i=i+1
+        print("num:",o)
+        if d==['delete']:
+            os.remove('content/static/'+user.image["path"][i])
+            user.delete_image(user.image["path"][i],user.image["name"][i])
+            flag_modified(user,"image")
+            db.session.commit()
+            return render_template('welcome_user.html',img=None,op=None)
+        return render_template('welcome_user.html',img=user.image["path"][i],op=i)
     return render_template('welcome_user.html',size=350,img=None,op=None)
 @app.route('/step3',methods=['GET','POST'])
 @login_required
 def step3():
     if request.method=='POST':
         user=User.query.filter_by(username=current_user.username).first()
-        s=request.values['ad-size']
-        if user.showing_num==0:
-            return render_template('welcome_user.html',size=s,img=None,op=None)
-        elif user.showing_num=='1':
-            return render_template('welcome_user.html',size=s,img=user.image_path_1,op=None)
-        elif user.showing_num=='2':
-            return render_template('welcome_user.html',size=s,img=user.image_path_2,op=None)
-        else:
-            return render_template('welcome_user.html',size=s,img=user.image_path_3,op=None)
-    return render_template('welcome_user.html',size=350,img=None,op=None)
+        font_size=request.values['font-size']
+        letterspacing=request.values['space-size']
+        text=request.form.get('text')
+    return render_template('run-model.html',size=350,img=None,op=None)
 @app.route('/tutorial')
 def tutorial():
     return render_template('how_to_use.html')
