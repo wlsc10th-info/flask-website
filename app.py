@@ -7,6 +7,9 @@ from content.forms import RegistrationForm,LoginForm
 from werkzeug.utils import secure_filename
 from sqlalchemy.orm.attributes import flag_modified
 import os
+
+basepath = os.path.dirname(__file__)
+
 db.create_all()
 @app.route('/')
 def home():
@@ -42,7 +45,7 @@ def register():
             flash("此名稱已被使用")
             return redirect(url_for('register'))
         # add to db table
-        os.makedirs('C:\\Users\\ivanw\\OneDrive\\桌面\\flaskWebsite\\content\\static/'+user.username)
+        os.makedirs(os.path.join(basepath, 'content/static/'+user.username))
         db.session.add(user)
         db.session.commit()
         flash("感謝註冊本系統成為會員")
@@ -61,7 +64,6 @@ def step1():
                 flash('this style name has existed')
                 return render_template('welcome_user.html',size=350,img=None,op=None)
 
-        basepath=os.path.dirname(__file__)
         root, extension = os.path.splitext(f.filename)
         f.filename=style_name+extension
         upload_path=os.path.join(basepath,'content/static/'+user.username,secure_filename(f.filename))

@@ -16,7 +16,7 @@
                 <div class="form-group">
                     <label for="sel1">Select list:</label>
                     <select class="form-control" id="sel1" name="optradio">
-                        <option selected value="{{current_user.image['name'][op]}}">{{current_user.image['name'][op]}}</option>
+                        <option selected value="{{current_user.image['name'][op]}}">Current ({{current_user.image['name'][op]}})</option>
                         {%for name in current_user.image['name']%}
                             <option value="{{name}}">{{name}}</option>
                         {%endfor%}
@@ -60,11 +60,11 @@
                             <div class="row">
                                 <div class="col bg-light border rounded border-light">
                                     <p>
-                                        upload your file:
+                                        Upload your image file:
                                         <input id="file" type="file" name="file" multiple class="file-loading" required>
                                     </p>
                                     <p>
-                                        enter your style name:
+                                        Enter your style name:
                                         <input type="text" name="style_name" required>
                                     </p>
                                     <button type="submit" >Save changes</button>
