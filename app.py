@@ -65,11 +65,6 @@ def step1():
         root, extension = os.path.splitext(f.filename)
         f.filename=style_name+extension
         upload_path=os.path.join(basepath,'content/static/'+user.username,secure_filename(f.filename))
-        
-        
-        
-        if upload_path == 'C:\\Users\\ivanw\\OneDrive\\桌面\\flaskWebsite\\content/static/'+user.username+'\\':
-            return render_template('welcome_user.html',size=350,img=None,op=None)
         f.save(upload_path)
         user.input_images('../static/'+user.username+'/'+f.filename,style_name)
         flag_modified(user,"image")
