@@ -6,7 +6,15 @@ from content.models import User
 from content.forms import RegistrationForm,LoginForm
 from werkzeug.utils import secure_filename
 from sqlalchemy.orm.attributes import flag_modified
+
 import os
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--host', type=str, default=None)
+parser.add_argument('--port', type=int, default=None)
+parser.add_argument('--debug', action='store_true')
+args = parser.parse_args()
 
 basepath = os.path.dirname(__file__)
 
@@ -111,4 +119,4 @@ def step3():
 def tutorial():
     return render_template('how_to_use.html')
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host=args.host, port=args.port, debug=args.debug)
