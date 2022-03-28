@@ -6,10 +6,12 @@
     <div class="row">
         <div class="col bg-light border rounded border-dark">
             <form method="POST" action={{url_for('step3')}} enctype='multipart/form-data'>
+                <p>Enter your text:</p>
+                <textarea name="text" cols="40" rows="10" required></textarea>
                 <p>
-                    Enter your text:
+                    每行字元數 Characters in a row:
+                    <input type="text" name="char-in-row" placeholder="10" min="1" max="20" required>
                 </p>
-                    <textarea name="text" cols="40" rows="10" required></textarea>
                 <p>
                     Adjust your font size(px):
                     <input type="range" name="font-size" value="{{size}}" min="100" max="600" oninput="this.nextElementSibling.value = this.value">
@@ -27,7 +29,11 @@
             
         </div>
         <div class="col bg-light border rounded border-dark">
-            <h5>Results:</h5>
+            <h5>Result:</h5>
+            {%if img%}
+            <img src="{{img}}" style="max-width: 100%;">
+            <button class="btn"><a href="{{url_for('download', filename='save.png')}}">Download</a></button>
+            {%endif%}
         </div>
     </div>
     <div class="row">

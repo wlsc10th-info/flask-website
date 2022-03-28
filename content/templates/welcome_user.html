@@ -1,26 +1,24 @@
 {% extends "base.html" %}
-{% block title%}歡迎
-{%endblock title%}
+{%block title%}我的字體{%endblock title%}
 {% block content%}
 <div class="container">
     <div class="row justify-content-center">
-        <p><h3>{{current_user.username}}，歡迎回來</h3></p>
+        <p><h3>{{current_user.username}}，歡迎回來！</h3></p>
         
     </div>
     <div class="row bg-info justify-content-center">
         <div class="col-10 bg-light border rounded border-dark">
-            <p><h4>Choose your style:</h4></p>
+            <p><h4>Select your style:</h4></p>
             <form method="POST" action={{url_for('step2')}} enctype='multipart/form-data'>
                 <p>
                 
                 <div class="form-group">
-                    <label for="sel1">Select list:</label>
+                    <label for="sel1">List of styles:</label>
                     <select class="form-control" id="sel1" name="optradio">
                         <option selected value="{{current_user.image['name'][op]}}">Current ({{current_user.image['name'][op]}})</option>
                         {%for name in current_user.image['name']%}
                             <option value="{{name}}">{{name}}</option>
                         {%endfor%}
-                        
                     </select>
                 </div>
                     
@@ -29,8 +27,7 @@
                 <p>
                 <div class="form-check">
                     <label class="form-check-label" >
-                        <input type="radio" class="form-check-input" name="a" value="delete">delete
-                        
+                        <input type="radio" class="form-check-input" name="a" value="delete">Delete this style
                     </label>
                 </div>
                 {%endif%}
@@ -67,7 +64,7 @@
                                         Enter your style name:
                                         <input type="text" name="style_name" required>
                                     </p>
-                                    <button type="submit" >Save changes</button>
+                                    <button type="submit">Save</button>
                                 </div>
                                 <div class="col bg-light border rounded border-light">
                                     <p>Preview:</p>
