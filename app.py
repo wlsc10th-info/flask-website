@@ -138,8 +138,8 @@ def step2():
 def step3():
     if request.method=='POST':
         user=User.query.filter_by(username=current_user.username).first()
-        font_size=request.values['font-size']
-        letterspacing=request.values['space-size']
+        # font_size=request.values['font-size']
+        # letterspacing=request.values['space-size']
         text=request.form.get('text')
 
         f = open('temp.txt', 'w', encoding='utf8')

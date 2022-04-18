@@ -12,16 +12,16 @@
                     每行字元數 Characters in a row:
                     <input type="text" name="char-in-row" placeholder="10" min="1" max="20" required>
                 </p>
-                <p>
-                    Adjust your font size(px):
-                    <input type="range" name="font-size" value="{{size}}" min="100" max="600" oninput="this.nextElementSibling.value = this.value">
-                    <output>{{size}}</output>
-                </p>
-                <p>
-                    Adjust your letterspacing(px):
-                    <input type="range" name="space-size" value="{{size}}" min="100" max="600" oninput="this.nextElementSibling.value = this.value">
-                    <output>{{size}}</output>
-                </p>
+<!--                <p>-->
+<!--                    Adjust your font size(px):-->
+<!--                    <input type="range" name="font-size" value="{{size}}" min="100" max="600" oninput="this.nextElementSibling.value = this.value">-->
+<!--                    <output>{{size}}</output>-->
+<!--                </p>-->
+<!--                <p>-->
+<!--                    Adjust your letterspacing(px):-->
+<!--                    <input type="range" name="space-size" value="{{size}}" min="100" max="600" oninput="this.nextElementSibling.value = this.value">-->
+<!--                    <output>{{size}}</output>-->
+<!--                </p>-->
                 <p>
                     <button type='submit'>Submit</button>
                 </p>
@@ -32,7 +32,7 @@
             <h5>Result:</h5>
             {%if img%}
             <img src="{{img}}" style="max-width: 100%;">
-            <button class="btn"><a href="{{url_for('download', filename='save.png')}}">Download</a></button>
+            <button class="btn"><a href="{{url_for('download', filename='save.png')}}">Download PNG File</a></button>
             {%endif%}
         </div>
     </div>
