@@ -3,31 +3,33 @@
 {%endblock title%}
 {% block content%}
 <div class="container">
-    <div class="row justify-content-center">
-        <h1>註冊您的帳號!</h1>
-    </div>
-    <div class="row">
-        <div class="col bg-light border rounded border-light"></div>
-        <div class="col bg-light border rounded border-light">
-            <form method="POST">
-                {{ form.hidden_tag() }}
-                <div class="form-group">
-                {{form.username.label}} 
-                {{form.username(class_="form-control form-control-lg") }}
-                </div>
-                <div class="form-group">
-                {{ form.password.label }} 
-                {{ form.password(class_="form-control form-control-lg") }}
-                </div>
-                <div class="form-group">
-                {{ form.pass_confirm.label }} 
-                {{ form.pass_confirm(class_="form-control form-control-lg") }}
-                </div>
-                {{form.submit(class_="btn btn-primary btn-lg")}}
-            </form>
+  <div class="row justify-content-center">
+    <h2 class="m-4">註冊您的帳號！</h2>
+  </div>
+  <div class="row justify-content-center p-2">
+    <div class="col-5 bg-light border rounded shadow-sm">
+      <form method="POST" class="m-4">
+        {{ form.hidden_tag() }}
+        <div class="form-group p-1">
+          {{form.username.label}}
+          {{form.username(class_="form-control form-control-lg") }}
         </div>
-        <div class="col bg-light border rounded border-light"></div>
+        <div class="form-group p-1">
+          {{ form.password.label }}
+          {{ form.password(class_="form-control form-control-lg") }}
+        </div>
+        <div class="form-group p-1">
+          {{ form.pass_confirm.label }}
+          {{ form.pass_confirm(class_="form-control form-control-lg") }}
+        </div>
+        {{form.submit(class_="btn btn-primary btn-lg")}}
+      </form>
     </div>
+  </div>
+    <div class="row justify-content-center">
+    <div class="col-5 bg-light border border-info rounded text-center p-3 shadow">
+      <a href="{{url_for('login')}}">已經註冊了嗎？點我前往登入！</a>
+    </div>
+  </div>
 </div>
-
 {% endblock content%}

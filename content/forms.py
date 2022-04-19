@@ -5,11 +5,12 @@ from wtforms import ValidationError
 from content.models import User
 
 class LoginForm(FlaskForm):
-    username = StringField('使用者', validators=[DataRequired()])
+    username = StringField('使用者帳號', validators=[DataRequired()])
     password = PasswordField('密碼',validators=[DataRequired()])
     submit = SubmitField('登入系統')
+
 class RegistrationForm(FlaskForm):
-    username = StringField('使用者', validators=[DataRequired()])
+    username = StringField('使用者帳號', validators=[DataRequired()])
     password = PasswordField('密碼', validators=[DataRequired(), EqualTo('pass_confirm', message='密碼需要吻合')])
     pass_confirm = PasswordField('確認密碼', validators=[DataRequired()])
     submit = SubmitField('註冊')

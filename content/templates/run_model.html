@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title%}生成文字
+{%endblock title%}
+{% block content%}
+<div class="overlay" id="loading-overlay">
+  <div class="spinner" id="loading-spinner"></div>
+    <div class="spinner-text">
+      <h2>請稍待...</h2>
+    </div>
+</div>
+
+<div class="container">
+  <div class="row m-4">
+    <div class="col bg-light border border-secondary p-3">
+      <form method="POST" action={{url_for('step3')}} enctype='multipart/form-data'>
+        <p>請輸入欲產生的文字：</p>
+        <textarea name="text" cols="50" rows="10" required></textarea>
+        <p>
+          每行字元數 Characters in a row:
+          <input type="text" name="char-in-row" placeholder="10" min="1" max="20" required>
+        </p>
+<!--        <p>
+            Adjust your font size(px):
+            <input type="range" name="font-size" value="{{size}}" min="100" max="600" oninput="this.nextElementSibling.value = this.value">
+            <output>{{size}}</output>
+        </p>
+        <p>
+            Adjust your letterspacing(px):
+            <input type="range" name="space-size" value="{{size}}" min="100" max="600" oninput="this.nextElementSibling.value = this.value">
+            <output>{{size}}</output>
+        </p>-->
+        <button type='submit' class="mr-2" onclick="show_loading()">送出</button>
+      </form>
+
+    </div>
+    <div class="col bg-light border border-secondary p-3">
+      <h5>成果預覽：</h5>
+      {%if img%}
+      <img src="{{img}}" style="max-width: 100%;">
+      <br/>
+      <button class="btn">
+        <a href="{{url_for('download', filename='save.png')}}">下載 PNG 圖檔</a>
+      </button>
+      {%endif%}
+    </div>
+  </div>
+  <div class="row m-4">
+    <div class="col p-1">
+      <a href="{{url_for('step2')}}">
+        <button class="btn border-dark btn-danger" style="color:rgb(255, 255, 255)"><< 上一步</button>
+      </a>
+    </div>
+    <div class="col p-1 offset-9">
+      <a href="/">
+        <button class="btn border-dark btn-success text-white">完成(回首頁)</button>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function show_loading(){
+    $("#loading-overlay").show();
+  }
+</script>
+{%endblock content%}

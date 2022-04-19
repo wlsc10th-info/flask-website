@@ -7,6 +7,7 @@ from flask_login import UserMixin
 from sqlalchemy.dialects.postgresql import JSON
 import os
 #import cv2
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     image    = db.Column(JSON)
@@ -14,6 +15,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(64),unique=True, index=True)
     password_hash = db.Column(db.String(128))
     showing_img_name=db.Column(db.String(64))
+
     def __init__(self, username, password):
         """初始化"""
         self.showing_img_name=None
@@ -24,23 +26,23 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         """檢查使用者密碼"""
         return check_password_hash(self.password_hash, password)
+
     def input_images(self,image_path,name):
         self.image["name"].append(name)
         self.image["path"].append(image_path)
         print('name:',self.image["name"])
-        
-        return
+
     def delete_image(self,image_path,name):
         self.image["name"].remove(name)
         self.image["path"].remove(image_path)
-        
-        return
+
     def filename(self,path):
         if path==None:
             return
         basename=os.path.basename(path)
         filename=os.path.splitext(basename)[0]
         return filename
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)

@@ -1,87 +1,119 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    {%block head%}
-    
-    <meta charset="UTF-8">
-    <meta name="author" content="武陵高中第十屆科學班資訊組 wlsc10th-info">
-    <title>{%block title%}{%endblock title%}</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='style.css')}}" >
-  
-    {%endblock head%}
-</head>
-<body>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  
-  <nav class="navbar navbar-expand-lg nav-col navbar-dark ">
-    <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
-      <img src="../static/圖層 1.png" width="200px">
-    </div>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav ">
-        <li class="nav-item  ">
-          {% if current_user.is_authenticated %}
-            <a class="nav-link nav-col" href="{{url_for('step1')}}" >
-              <button class="btn button-col" style="color:rgb(255, 255, 255)">Get Started!</button>
-            </a>
-          {% else %}
-            <a class="nav-link nav-col" href="{{url_for('login')}}" >
-              <button class="btn button-col" style="color:rgb(255, 255, 255)">Get Started!</button>
-            </a>
-          {% endif %}
-        </li>
-          <a class="nav-link nav-col" href="{{url_for('tutorial')}}" >
-            <button class="btn nav-col" style="color:rgb(255, 255, 255)">Tutorial</button>
-          </a>
-        <li>
+  {%block head%}
 
-        </li>
-        <li class="nav-item dropdown" >
-          <a class="nav-link dropdown-toggle nav-col" href="#" id="navbardrop" data-toggle="dropdown" > 
-            <i class="fas fa-user"></i>
+  <meta charset="UTF-8">
+  <meta name="author" content="武陵高中第十屆科學班資訊組 wlsc10th-info">
+  <title>{%block title%}{%endblock title%}</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='style.css')}}">
+
+  {%endblock head%}
+</head>
+
+<body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+
+
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-sm navbar-dark bg-navbar">
+  <a href="/" class="nav-item nav-brand">
+    <img src="../static/SCIENCE.png" width="200px" class="d-inline-block pl-1 pr-3 my-1">
+    <span class="text-white align-middle text-navbar pr-2">首頁</span>
+  </a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="navbar-nav mr-auto">
+      <a class="nav-item navbar-link text-white text-navbar p-1" href="{{url_for('tutorial')}}">
+        使用教學
+      </a>
+      <a class="nav-item navbar-link text-white text-navbar p-1" href="https://github.com/wlsc10th-info/flask-website"
+         target="_blank">
+        原始碼
+        <svg height="25" width="25" viewBox="0 0 1024 768" class="mb-2">
+          <path fill="#dadada" d="M640 768H128V258L256 256V128H0v768h768V576H640V768zM384 128l128 128L320 448l128 128 192-192 128 128V128H384z"/>
+        </svg>
+      </a>
+    </div>
+    <div class="navbar-nav justify-content-end">
+      {% if current_user.is_authenticated %}
+      <a class="nav-item nav-link bg-navbar" href="{{url_for('step1')}}">
+        <button class="btn button-col mx-2" style="color:rgb(255, 255, 255)">開始使用！</button>
+      </a>
+      {% else %}
+      <a class="nav-item nav-link bg-navbar mx-2" href="{{url_for('login')}}">
+        <button class="btn button-col" style="color:rgb(255, 255, 255)">開始使用！</button>
+      </a>
+      {% endif %}
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle bg-navbar mx-2" href="#" id="navbarDrop" data-toggle="dropdown">
+          <i class="fas fa-user"></i>
+        </a>
+        <div class="dropdown-menu bg-navbar dropdown-menu-right">
+          {% if current_user.is_authenticated %}
+          <a class="dropdown-item bg-navbar" href="{{url_for('logout')}}">
+            <button class="btn bg-navbar" style="color:rgb(255, 255, 255)">登出帳號</button>
           </a>
-          <ul class="dropdown-menu nav-col">
-            {% if current_user.is_authenticated %}
-                <a class="dropdown-link nav-col" href="{{url_for('logout')}}" >
-                  <button class="btn nav-col" style="color:rgb(255, 255, 255)">登出帳號</button>
-                </a>
-            {% else %}
-                <li>
-                  <a class="dropdown-link nav-col" href="{{url_for('login')}}" >
-                    <button class="btn nav-col" style="color:rgb(255, 255, 255)">登入帳號</button>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-link nav-col" href="{{url_for('register')}}" >
-                    <button class="btn nav-col" style="color:rgb(255, 255, 255)">註冊帳號</button> 
-                  </a>
-                </li>
-            {% endif %}
-          </ul>
-        </li>
+          {% else %}
+          <a class="dropdown-item bg-navbar" href="{{url_for('login')}}">
+            <button class="btn bg-navbar" style="color:rgb(255, 255, 255)">登入帳號</button>
+          </a>
+          <a class="dropdown-item bg-navbar" href="{{url_for('register')}}">
+            <button class="btn bg-navbar" style="color:rgb(255, 255, 255)">註冊帳號</button>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Messages -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-5 m-4 alert alert-primary align-middle">
+      <ul class="flash">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
       </ul>
     </div>
-  </nav>
-  <!-- <div class="background-image"
-     style="background-image:url('../static/background.jpg') ;
-            height: 100vh"> -->
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-      <ul class="flash">
-          {% for message in messages %}
-              <li>{{ message }}</li>
-          {% endfor %}
-      </ul>
-      {% endif %}
-    {% endwith %}
-    {%block content%}
-    {%endblock content%}
-<!-- </div> --> 
-      
+  </div>
+</div>
+{% endif %}
+{% endwith %}
+
+<!-- Content -->
+<div class="content">
+  {%block content%}
+  {%endblock content%}
+</div>
+
+<footer class="footer">
+  <p>武陵高中第十屆科學班資訊組 WLSH 10th Science Class Information Group</p>
+  <a href="https://github.com/wlsc10th-info/" class="mx-3" target="_blank">
+    <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="25" data-view-component="true" class="mx-1">
+    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+    </svg>
+    GitHub Profile
+  </a>
+  <a href="mailto:wlsc10thinfo@gmail.com" target="_blank">
+    <img src="https://www.svgrepo.com/show/65426/email.svg" width="20" height="20">
+    wlsc10thinfo@gmail.com
+  </a>
+</footer>
 </body>
 </html>

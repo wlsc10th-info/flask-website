@@ -1,99 +1,106 @@
 {% extends "base.html" %}
-{%block title%}我的字體{%endblock title%}
+{%block title%}我的風格{%endblock title%}
 {% block content%}
 <div class="container">
-    <div class="row justify-content-center">
-        <p><h3>{{current_user.username}}，歡迎回來！</h3></p>
-        
-    </div>
-    <div class="row bg-info justify-content-center">
-        <div class="col-10 bg-light border rounded border-dark">
-            <p><h4>Select your style:</h4></p>
-            <form method="POST" action={{url_for('step2')}} enctype='multipart/form-data'>
-                <p>
-                
-                <div class="form-group">
-                    <label for="sel1">List of styles:</label>
-                    <select class="form-control" id="sel1" name="optradio">
-                        <option selected value="{{current_user.image['name'][op]}}">Current ({{current_user.image['name'][op]}})</option>
-                        {%for name in current_user.image['name']%}
-                            <option value="{{name}}">{{name}}</option>
-                        {%endfor%}
-                    </select>
-                </div>
-                    
-            </p>
-                {%if op!=None%}
-                <p>
-                <div class="form-check">
-                    <label class="form-check-label" >
-                        <input type="radio" class="form-check-input" name="a" value="delete">Delete this style
-                    </label>
-                </div>
-                {%endif%}
-            </p>
-                <p>
-                <button type='submit'>Submit</button>
-            </p>
-            </form>
+  <div class="row justify-content-center">
+    <h2 class="m-4">歡迎回來，{{current_user.username}}！</h2>
+  </div>
+  <div class="row bg-info justify-content-center">
+    <div class="col-10 bg-light border border-secondary p-4">
+      <h3 class="p-1">請選擇風格：</h3>
+
+      <form method="POST" action={{url_for('step2')}} enctype='multipart/form-data'>
+        <div class="form-group">
+          <label for="sel1">風格列表</label>
+          <select class="form-control" id="sel1" name="styleSelect" onchange="valid()">
+            <option disabled selected value="{{current_user.image['name'][op]}}">
+              {% if op == None%}
+              當前選擇 (無)
+              {%else%}
+              當前選擇 ({{current_user.image['name'][op]}})
+              {%endif%}
+            </option>
+            <option disabled>-------------------------</option>
+            {%for name in current_user.image['name']%}
+            <option value="{{name}}">{{name}}</option>
+            {%endfor%}
+          </select>
         </div>
-        <div class="col-2 bg-light border rounded border-dark">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-                Upload your style
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Upload your style!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form method="POST" action={{url_for('step1')}} enctype='multipart/form-data'>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col bg-light border rounded border-light">
-                                    <p>
-                                        Upload your image file:
-                                        <input id="file" type="file" name="file" multiple class="file-loading" required>
-                                    </p>
-                                    <p>
-                                        Enter your style name:
-                                        <input type="text" name="style_name" required>
-                                    </p>
-                                    <button type="submit">Save</button>
-                                </div>
-                                <div class="col bg-light border rounded border-light">
-                                    <p>Preview:</p>
-                                    <img id="preview" src="" alt="demo" style="display: none;width: 500px;">
-                                </div>
-                            </div>  
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <!-- <button type="submit" class="btn btn-primary">Save changes</button>-->
-                        </div>
-                    </form>
-                </div>
-                </div>
-            </div>
+
+        {%if op != None%}
+        <div class="form-check m-4 p-1">
+            <input type="checkbox" class="form-check-input" name="deleteCheckbox" value="delete" id="deleteCheckbox"
+                   onchange="checkDelete()">
+            刪除此風格(警告：此動作無法復原！)
         </div>
-    </div>
-    <div class="row bg-light justify-content-center box box2" style="height: 500px">
-        <h5>Preview:</h5>
-        {%if img%}
-            <img src="{{img}}">
         {%endif%}
+          <button type='submit' id="submitButton" disabled>送出</button>
+      </form>
     </div>
-    <div class="row justify-content-end">
-        <a href="{{url_for('step3')}}">
-            <button class="btn border-dark button-col" style="color:rgb(255, 255, 255)">Next>></button>
-        </a>
+    <div class="col-2 bg-light border border-secondary p-3">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+        上傳新風格
+      </button>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">上傳新風格</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form method="POST" action={{url_for('step1')}} enctype='multipart/form-data'>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col p-3">
+                    <p>
+                      上傳圖片檔案：
+                      <input id="file" type="file" name="file" multiple class="file-loading" required>
+                    </p>
+                    <p>
+                      輸入風格名稱：
+                      <input type="text" name="style_name" required>
+                    </p>
+
+                  </div>
+                  <div class="col">
+                    <p>圖片預覽：</p>
+                    <img id="preview" src="" alt="demo" class="mw-100" style="display: none;width: 500px;">
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-primary">確定儲存</button>
+                <!-- <button type="submit" class="btn btn-primary">Save changes</button>-->
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="row bg-light justify-content-center box border border-secondary p-2" style="height: 500px">
+    <h5>圖片預覽：</h5>
+    {%if img%}
+    <img src="{{img}}" class="mw-100">
+    {%endif%}
+  </div>
+  <div class="row justify-content-end">
+    {%if img%}
+    <a href="{{url_for('step3')}}">
+      <button class="btn border-dark button-col ml-4 my-3 text-white">下一步 >></button>
+    </a>
+    {%else%}
+      <button class="btn border-dark button-col ml-4 my-3 text-white" disabled>下一步 >></button>
+    {%endif%}
+    </a>
+  </div>
 </div>
+
 <script>
     var file = document.getElementById("file")
     var img = document.getElementById("preview")
@@ -114,5 +121,20 @@
             img.style.display = "none"
         }
     }
+</script>
+<script>
+  function valid(){
+      document.getElementById('submitButton').removeAttribute('disabled');
+  }
+
+  function checkDelete(){
+    if(document.getElementById('deleteCheckbox').checked){
+      document.getElementById('submitButton').value = '確認刪除';
+      document.getElementById('submitButton').innerHTML = '確認刪除';
+    }else{
+      document.getElementById('submitButton').value = '送出';
+      document.getElementById('submitButton').innerHTML = '送出';
+    }
+  }
 </script>
 {% endblock content%}

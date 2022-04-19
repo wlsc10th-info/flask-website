@@ -3,10 +3,15 @@
 {%endblock title%}
 {% block content%}
 <div class="text-center">
-    <h1>歡迎使用手寫風格產生器!</h1>
-    <a href="{{url_for('login')}}">
-        <button  class="btn btn-warning" >Get Started!</button>
-    </a>
+  <h1 class="m-5">歡迎使用手寫風格文字產生器！</h1>
+  {% if current_user.is_authenticated %}
+  <a href="{{url_for('step1')}}">
+    <button class="btn btn-success btn-lg">開始使用！</button>
+  </a>
+  {% else %}
+  <a href="{{url_for('login')}}">
+    <button class="btn btn-success btn-lg">開始使用！</button>
+  </a>
+  {% endif %}
 </div>
-
 {% endblock content%}
