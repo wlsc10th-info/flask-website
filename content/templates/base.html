@@ -4,13 +4,15 @@
   {%block head%}
 
   <meta charset="UTF-8">
-  <meta name="author" content="武陵高中第十屆科學班資訊組 wlsc10th-info">
+  <meta name="author" content="武陵高中第十屆科學班資訊組 WLSH 10th Science Class Information Group">
   <title>{%block title%}{%endblock title%}</title>
+
+  <link rel="shortcut icon" href="{{url_for('static', filename='favicon.svg')}}">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='style.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
 
   {%endblock head%}
 </head>
@@ -30,7 +32,7 @@
 <!-- Navigation bar -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-navbar">
   <a href="/" class="nav-item nav-brand">
-    <img src="../static/SCIENCE.png" width="200px" class="d-inline-block pl-1 pr-3 my-1">
+    <img src="{{url_for('static', filename='white.svg')}}" height="60px" class="d-inline-block pl-1 pr-2 my-1">
     <span class="text-white align-middle text-navbar pr-2">首頁</span>
   </a>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -102,18 +104,35 @@
   {%endblock content%}
 </div>
 
-<footer class="footer">
-  <p>武陵高中第十屆科學班資訊組 WLSH 10th Science Class Information Group</p>
-  <a href="https://github.com/wlsc10th-info/" class="mx-3" target="_blank">
-    <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="25" data-view-component="true" class="mx-1">
-    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-    </svg>
-    GitHub Profile
-  </a>
-  <a href="mailto:wlsc10thinfo@gmail.com" target="_blank">
-    <img src="https://www.svgrepo.com/show/65426/email.svg" width="20" height="20">
-    wlsc10thinfo@gmail.com
-  </a>
+<footer class="footer container mw-100">
+  <div class="row justify-content-center mx-0">
+    <div class="mx-1">
+      <img src="{{url_for('static', filename='SCIENCE black bg.svg')}}" height="50px">
+    </div>
+    <div class="col-2 mx-2">
+      <p>
+        武陵高中第十屆科學班資訊組<br/>
+        WLSH 10th Science Class Information Group
+      </p>
+    </div>
+    <div class="col-2 mx-2">
+      <p class="m-0">
+        <a href="https://github.com/wlsc10th-info/" target="_blank">
+          <svg height="30" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="25" data-view-component="true"
+               class="mx-1">
+            <path fill-rule="evenodd"
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+          </svg>
+          wlsc10th-info
+        </a>
+        <br/>
+        <a href="mailto:wlsc10thinfo@gmail.com" target="_blank">
+          <img src="https://www.svgrepo.com/show/65426/email.svg" height="25" class="mx-1">
+          wlsc10thinfo@gmail.com
+        </a>
+      </p>
+    </div>
+  </div>
 </footer>
 </body>
 </html>

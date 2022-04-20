@@ -7,9 +7,9 @@
   </div>
   <div class="row bg-info justify-content-center">
     <div class="col-10 bg-light border border-secondary p-4">
-      <h3 class="p-1">請選擇風格：</h3>
+      <h3>請選擇風格：</h3>
 
-      <form method="POST" action={{url_for('step2')}} enctype='multipart/form-data'>
+      <form method="POST" action={{url_for('step2')}} enctype='multipart/form-data' class="py-2">
         <div class="form-group">
           <label for="sel1">風格列表</label>
           <select class="form-control" id="sel1" name="styleSelect" onchange="valid()">
