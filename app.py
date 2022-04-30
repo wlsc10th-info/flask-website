@@ -209,5 +209,13 @@ def tutorial():
 def download(filename):
     return send_from_directory('static', filename, as_attachment=True)
 
+def init():
+    check_dirs = ['/content/static/users/', '/std_img/', '/std_img/id_0', '/std_img/id_1']
+    for i in check_dirs:
+        path = Path(base_path + i)
+        if not path.exists():
+            path.mkdir()
+
 if __name__ == '__main__':
+    init()
     app.run(host=args.host, port=args.port, debug=args.debug)
